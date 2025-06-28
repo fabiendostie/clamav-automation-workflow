@@ -1,0 +1,131 @@
+##
+## Enhanced ClamAV Configuration for Windows 11 with Quarantine
+## File: C:\Program Files\ClamAV\clamd.conf
+##
+
+# Basic configuration
+LogFile "C:\Program Files\ClamAV\logs\clamd.log"
+LogTime yes
+LogFileMaxSize 100M
+LogRotate yes
+LogVerbose yes
+DatabaseDirectory "C:\Program Files\ClamAV\database"
+TemporaryDirectory "C:\temp"
+
+# Enhanced logging for our workflow
+ExtendedDetectionInfo yes
+LogInfected /infected
+LogClean /clean
+
+# Quarantine configuration - STEP 2
+Quarantine "C:\Program Files\ClamAV\quarantine"
+MoveInfected yes
+
+# Network configuration
+TCPSocket 3310
+TCPAddr 127.0.0.1
+MaxConnectionQueueLength 30
+
+# Performance settings
+MaxThreads 8
+ReadTimeout 300
+MaxQueue 100
+
+# Directory exclusions for Windows 11
+ExcludePath "^C:\\Windows\\System32\\"
+ExcludePath "^C:\\Windows\\SysWOW64\\"
+ExcludePath "^C:\\Windows\\WinSxS\\"
+ExcludePath "^C:\\ProgramData\\Microsoft\\Windows Defender\\"
+ExcludePath "^C:\\Users\\.*\\AppData\\Local\\Temp\\"
+ExcludePath "^C:\\Users\\.*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\"
+ExcludePath "^C:\\Windows\\Temp\\"
+ExcludePath "^C:\\Temp\\"
+# Development exclusions
+ExcludePath "^C:\\Users\\fabie\\dev\\flutter\\"
+ExcludePath "^C:\\Users\\fabie\\Documents\\essentia\\"
+ExcludePath "^C:\\Users\\fabie\\.vscode\\"
+ExcludePath "^C:\\Users\\fabie\\AppData\\Local\\Programs\\Microsoft VS Code\\"
+# WSL exclusions
+ExcludePath "^C:\\Users\\fabie\\AppData\\Local\\Packages\\.*\\LocalState\\rootfs\\"
+# Software Exclusions
+ExcludePath ^C:\\ProgramData\\Ableton\\Live 12 Suite\\Resources\\Extensions\\Index
+
+# Enhanced scanning limits for security
+MaxFileSize 200M
+MaxScanSize 800M
+MaxRecursion 20
+MaxFiles 50000
+MaxScanTime 600000
+MaxDirectoryRecursion 25
+
+# Archive and document limits
+MaxEmbeddedPE 50M
+MaxHTMLNormalize 50M
+MaxHTMLNoTags 10M
+MaxScriptNormalize 25M
+MaxZipTypeRcg 2M
+MaxPartitions 256
+MaxIconsPE 300
+
+# Comprehensive file type scanning
+ScanPE yes
+ScanELF yes
+ScanOLE2 yes
+ScanPDF yes
+ScanSWF yes
+ScanHTML yes
+ScanXMLDOCS yes
+ScanHWP3 yes
+ScanOneNote yes
+ScanMail yes
+ScanArchive yes
+ScanImage no
+
+# Security features (balanced approach)
+DetectPUA no
+HeuristicAlerts yes
+HeuristicScanPrecedence no
+AlertBrokenExecutables no
+AlertBrokenMedia no
+AlertEncrypted no
+AlertEncryptedArchive no
+AlertEncryptedDoc no
+AlertOLE2Macros yes
+AlertExceedsMax no
+
+# Advanced malware detection
+PhishingSignatures yes
+PhishingScanURLs yes
+PhishingAlwaysBlockSSLMismatch no
+PhishingAlwaysBlockCloak no
+
+# Bytecode security (critical for advanced threats)
+Bytecode yes
+BytecodeSecurity TrustSigned
+BytecodeTimeout 15000
+BytecodeUnsigned no
+
+# Performance optimization
+ForceToDisk no
+DisableCache no
+CacheSize 131072
+
+# Database integrity and updates
+SelfCheck 3600
+FailIfCvdOlderThan 14
+
+# Enhanced detection information
+ExtendedDetectionInfo yes
+
+# Virus event handling - STEP 3 & 4 Integration
+VirusEvent "C:\\Program Files\\ClamAV\\scripts\\virus_handler.bat" "%v" "%f"
+
+# PCRE settings for regex patterns
+PCREMatchLimit 15000
+PCRERecMatchLimit 15000
+PCREMaxFileSize 150M
+
+# Cross-filesystem scanning
+CrossFilesystems yes
+FollowDirectorySymlinks no
+FollowFileSymlinks no

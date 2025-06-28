@@ -1,0 +1,53 @@
+# ================================
+# ClamAV Automation Workflow .gitignore
+# ================================
+
+# Logs and temporary files
+*.log
+logs/
+temp/
+*.tmp
+
+# Configuration files with sensitive data
+vt_config.txt
+config/vt_config.txt
+
+# Quarantine and backup directories
+quarantine/
+removal_backups/
+
+# Personal data and system-specific paths
+*.personal
+*_personal.*
+
+# Windows specific
+Thumbs.db
+desktop.ini
+*.lnk
+
+# ClamAV databases and binaries (not part of workflow)
+*.cvd
+*.cld
+*.exe
+*.dll
+*.pdb
+*.lib
+database/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules if any JavaScript tools are used
+node_modules/
+
+# Python cache if any Python tools are used
+__pycache__/
+*.pyc
+
+# Local development overrides
+local_config.*
+.env
